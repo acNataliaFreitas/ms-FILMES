@@ -9,10 +9,10 @@ import com.iftm.ratingsdataservice.models.Rating;
 @RestController
 @RequestMapping("/ratingsdata")
 public class RatingsResource {
-	
+
 	@RequestMapping("/{movieId}")
 	public Rating getRating(@PathVariable("movieId") String movieId) {
-	
-	return new Rating(movieId, 9);
-}
+
+		return new Rating(movieId, 9);
+	}
 }
