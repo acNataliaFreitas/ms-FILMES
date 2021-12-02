@@ -30,10 +30,10 @@ public class CatalogResource {
 		UserRating userRatings = restTemplate.getForObject("http://ratings-data-service/ratingsdata/user/" + userId,
 				UserRating.class);
 
-		return userRatings.getRatings().stream().map(ratings -> {
-			Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + ratings.getMovieId(),
+		return userRatings.getRating().stream().map(rating -> {
+			Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(),
 					Movie.class);
-			return new CatalogItem(movie.getName(), "FILMAÇO", ratings.getRating());
+			return new CatalogItem(movie.getName(), "FILMAÇO", rating.getRating());
 		}).collect(Collectors.toList());
 	}
 }
