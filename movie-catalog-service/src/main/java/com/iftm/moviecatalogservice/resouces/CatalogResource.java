@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.iftm.moviecatalogservice.models.CatalogItem;
 import com.iftm.moviecatalogservice.models.Movie;
-import com.iftm.moviecatalogservice.models.Rating;
 import com.iftm.moviecatalogservice.models.UserRating;
 import com.netflix.discovery.DiscoveryClient;
 
@@ -28,13 +27,13 @@ public class CatalogResource {
 	@RequestMapping("/{userId}")
 	public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
 
-		UserRating userRating = restTemplate.getForObject("http://ratings-data-service/ratingsdata/user/" + userId,
+		UserRating userRatings = restTemplate.getForObject("http://ratings-data-service/ratingsdata/user/" + userId,
 				UserRating.class);
 
-		return userRating.getRating().stream().map(rating -> {
-			Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(),
+		return userRatings.getRatings().stream().map(ratings -> {
+			Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + ratings.getMovieId(),
 					Movie.class);
-			return new CatalogItem(movie.getName(), "FILMAÇO", rating.getRating());
+			return new CatalogItem(movie.getName(), "FILMAÇO", ratings.getRating());
 		}).collect(Collectors.toList());
 	}
 }
