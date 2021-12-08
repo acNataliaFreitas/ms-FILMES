@@ -12,4 +12,10 @@ public class RatingsDataServiceApplication {
 		SpringApplication.run(RatingsDataServiceApplication.class, args);
 	}
 
+	/*
+	 * @Bean
+	 * 
+	 * @LoadBalanced public RestTemplate getRestTemplate() { return new
+	 * RestTemplate(); }
+	 */
 }
